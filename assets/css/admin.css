@@ -1,0 +1,252 @@
+/* JJRC Google Reviews - Admin CSS */
+
+.jjrc-gr-admin h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+.jjrc-gr-admin h1 .dashicons {
+    color: #f5a623;
+    font-size: 26px;
+    width: 26px;
+    height: 26px;
+}
+
+.jjrc-gr-toolbar {
+    margin-bottom: 16px;
+}
+
+/* Tabla */
+.jjrc-table code {
+    font-size: 12px;
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+.jjrc-actions {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+.jjrc-rating {
+    font-weight: 600;
+    color: #2271b1;
+}
+.jjrc-no-cache {
+    color: #999;
+    font-style: italic;
+    font-size: 12px;
+}
+
+/* Modal overlay */
+.jjrc-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.jjrc-modal {
+    background: #fff;
+    border-radius: 8px;
+    width: 600px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+.jjrc-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.jjrc-modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+.jjrc-modal-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+    padding: 0;
+}
+.jjrc-modal-close:hover { color: #c00; }
+.jjrc-modal-body {
+    padding: 20px;
+}
+
+/* Campos */
+.jjrc-field-group {
+    margin-bottom: 16px;
+}
+.jjrc-field-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 13px;
+}
+.jjrc-field-group input[type="text"],
+.jjrc-field-group select {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+}
+.jjrc-field-hint {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #666;
+}
+.required { color: #c00; }
+
+.jjrc-field-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.jjrc-field-row .jjrc-field-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Colores */
+.jjrc-colors-row {
+    display: flex;
+    gap: 20px;
+}
+.jjrc-color-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+.jjrc-color-field label {
+    font-size: 12px;
+    font-weight: normal;
+    color: #555;
+}
+.jjrc-color-field input[type="color"] {
+    width: 50px;
+    height: 40px;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Autocomplete */
+.jjrc-autocomplete-wrap {
+    position: relative;
+}
+.jjrc-autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    z-index: 9999;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-height: 220px;
+    overflow-y: auto;
+}
+.jjrc-autocomplete-list li {
+    padding: 9px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+.jjrc-autocomplete-list li:hover {
+    background: #f0f7ff;
+}
+.jjrc-autocomplete-list li:last-child { border-bottom: none; }
+
+/* Modal footer */
+.jjrc-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 16px;
+}
+.jjrc-form-message {
+    flex: 1;
+    font-size: 13px;
+}
+.jjrc-form-message.success { color: #2a7a2a; }
+.jjrc-form-message.error   { color: #c00; }
+
+/* Copy button */
+.jjrc-btn-copy {
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+/* Place ID con botón de búsqueda */
+.jjrc-place-id-wrap {
+    display: flex;
+    gap: 6px;
+    align-items: stretch;
+}
+.jjrc-place-id-wrap input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+}
+.jjrc-btn-search {
+    padding: 0 10px !important;
+    flex-shrink: 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+.jjrc-btn-search .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 1;
+}
+
+/* Modal de búsqueda (sobre el modal principal) */
+.jjrc-search-overlay {
+    z-index: 100000;
+}
+.jjrc-search-modal {
+    width: 500px;
+}
+.jjrc-search-results-list {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.jjrc-search-results-list li {
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.15s;
+    line-height: 1.4;
+}
+.jjrc-search-results-list li:last-child { border-bottom: none; }
+.jjrc-search-results-list li:hover { background: #f0f7ff; }
