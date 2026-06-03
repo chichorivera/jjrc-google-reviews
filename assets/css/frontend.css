@@ -39,6 +39,20 @@
     border: none !important;
     box-shadow: none !important;
 }
+.jjrc-gr-wrap .owl-dots{
+    bottom: -42px;
+}
+.jjrc-gr-wrap .owl-prev{
+    margin-left: -42px;
+}
+.jjrc-gr-wrap .owl-next{
+    margin-right: -42px;
+}
+.jjrc-gr-wrap .owl-theme .owl-dots .owl-dot span {
+    width: 15px;
+    height: 15px;
+    margin: 5px 7px;
+}
 
 /* ---- Header con nombre y rating global ---- */
 .jjrc-gr-wrap .jjrc-gr-header {
