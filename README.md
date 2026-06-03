@@ -95,6 +95,9 @@ jjrc-google-reviews/
 
 ## Changelog
 
+### 1.3.2
+- **Mejora:** CSS del frontend reforzado para evitar conflictos con Elementor y otros constructores visuales — reset de aislamiento, todos los selectores bajo `.jjrc-gr-wrap`, `!important` estratégico en propiedades que Elementor sobreescribe (márgenes de `p`, dimensiones de `img`, links)
+
 ### 1.3.1
 - **Fix:** Idioma de reseñas en inglés — `X-Goog-LanguageCode` no es un header válido en Places API (New); corregido usando `languageCode=es` como query parameter en la URL
 
