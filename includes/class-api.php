@@ -7,6 +7,13 @@ class JJRC_GR_Api {
         return get_option( 'jjrc_gr_api_key', '' );
     }
 
+    private static function request_args() {
+        return [
+            'timeout' => 10,
+            'headers' => [ 'Referer' => get_site_url() ],
+        ];
+    }
+
     /**
      * Búsqueda de lugares por texto (para el admin)
      * Usa textsearch en lugar de autocomplete para mayor compatibilidad de API key.
@@ -21,7 +28,7 @@ class JJRC_GR_Api {
             'key'      => $key,
         ], 'https://maps.googleapis.com/maps/api/place/textsearch/json' );
 
-        $response = wp_remote_get( $url, [ 'timeout' => 10 ] );
+        $response = wp_remote_get( $url, self::request_args() );
 
         if ( is_wp_error( $response ) ) {
             return [ 'error' => $response->get_error_message() ];
@@ -59,7 +66,7 @@ class JJRC_GR_Api {
             'key'      => $key,
         ], 'https://maps.googleapis.com/maps/api/place/details/json' );
 
-        $response = wp_remote_get( $url, [ 'timeout' => 10 ] );
+        $response = wp_remote_get( $url, self::request_args() );
 
         if ( is_wp_error( $response ) ) {
             return [ 'error' => $response->get_error_message() ];
