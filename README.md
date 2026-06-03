@@ -95,6 +95,9 @@ jjrc-google-reviews/
 
 ## Changelog
 
+### 1.2.2
+- **Fix:** La migración de `min_rating` no se ejecutaba porque la versión DB ya estaba marcada como actualizada — corregido incrementando `DB_VERSION` a `1.2`
+
 ### 1.2.1
 - **Fix:** La columna `min_rating` no se creaba en tablas existentes — reemplazada migración con `dbDelta` por `ALTER TABLE` explícito con verificación previa
 

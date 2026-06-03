@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class JJRC_GR_Database {
 
-    const DB_VERSION = '1.1';
+    const DB_VERSION = '1.2';
 
     public static function install() {
         global $wpdb;
