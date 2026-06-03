@@ -22,7 +22,7 @@ Plugin de WordPress para mostrar reseñas de Google Maps mediante shortcodes con
 2. Crea un proyecto (o usa uno existente)
 3. Habilita la **Places API**
 4. Crea una credencial de tipo **API Key**
-5. Restringe la key por HTTP referrer para mayor seguridad
+5. En **Restricciones de aplicación** deja la key sin restricción, o usa restricción por **IP** (no por HTTP referrer, ya que las llamadas se hacen desde el servidor PHP)
 
 ### Agregar un comercio
 
@@ -93,6 +93,12 @@ jjrc-google-reviews/
 ```
 
 ## Changelog
+
+### 1.1.4
+- Bump de versión
+
+### 1.1.3
+- **Fix:** Agregado header `Referer` en todas las peticiones a la API de Google para compatibilidad con keys que requieren identificación del origen del servidor
 
 ### 1.1.2
 - **Fix:** Buscador sin resultados — reemplazado endpoint `autocomplete` por `textsearch`, mismo que usa la API de Google en el script de referencia (mayor compatibilidad con configuraciones de API key)
