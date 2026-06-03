@@ -58,14 +58,15 @@ class JJRC_GR_Api {
         $key = self::api_key();
         if ( empty( $key ) ) return [ 'error' => 'API Key no configurada.' ];
 
-        $url = 'https://places.googleapis.com/v1/places/' . rawurlencode( $place_id );
+        $url = add_query_arg( 'languageCode', 'es',
+            'https://places.googleapis.com/v1/places/' . rawurlencode( $place_id )
+        );
 
         $response = wp_remote_get( $url, [
             'timeout' => 10,
             'headers' => [
-                'X-Goog-Api-Key'      => $key,
-                'X-Goog-FieldMask'    => 'displayName,rating,userRatingCount,reviews',
-                'X-Goog-LanguageCode' => 'es',
+                'X-Goog-Api-Key'   => $key,
+                'X-Goog-FieldMask' => 'displayName,rating,userRatingCount,reviews',
             ],
         ] );
 

@@ -95,6 +95,9 @@ jjrc-google-reviews/
 
 ## Changelog
 
+### 1.3.1
+- **Fix:** Idioma de reseñas en inglés — `X-Goog-LanguageCode` no es un header válido en Places API (New); corregido usando `languageCode=es` como query parameter en la URL
+
 ### 1.3.0
 - **Migración:** Plugin completo migrado a **Places API (New)** — hasta 53 reseñas por lugar (antes 5)
 - **Mejora:** Buscador también migrado al nuevo endpoint `places:searchText` (POST)
