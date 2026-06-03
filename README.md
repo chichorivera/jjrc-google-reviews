@@ -67,9 +67,9 @@ Puedes tener múltiples shortcodes en la misma página, cada uno con sus propios
 
 Las reseñas se almacenan en base de datos para minimizar llamadas a la API de Google. Puedes refrescar la caché manualmente con el botón **🔄 Cache** en la tabla de comercios. La caché también se limpia automáticamente al editar un comercio.
 
-## Limitación de Google Places API
+## Límite de reseñas
 
-La API de Google Places devuelve un máximo de **5 reseñas** por lugar. Esto es una restricción de Google y no puede superarse con la Places API estándar.
+La **Places API (New)** utilizada desde v1.3.0 devuelve hasta **53 reseñas** por lugar. La versión anterior de la API (legacy) solo devolvía 5.
 
 ## Estructura del plugin
 
@@ -94,6 +94,12 @@ jjrc-google-reviews/
 ```
 
 ## Changelog
+
+### 1.3.0
+- **Migración:** Plugin completo migrado a **Places API (New)** — hasta 53 reseñas por lugar (antes 5)
+- **Mejora:** Buscador también migrado al nuevo endpoint `places:searchText` (POST)
+- **Mejora:** Autenticación vía header `X-Goog-Api-Key` en lugar de query param — más compatible con restricciones de API key
+- **Breaking:** Requiere que **Places API (New)** esté habilitada en Google Cloud Console (además de Places API)
 
 ### 1.2.2
 - **Fix:** La migración de `min_rating` no se ejecutaba porque la versión DB ya estaba marcada como actualizada — corregido incrementando `DB_VERSION` a `1.2`
