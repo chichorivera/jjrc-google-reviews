@@ -95,6 +95,9 @@ jjrc-google-reviews/
 
 ## Changelog
 
+### 1.2.1
+- **Fix:** La columna `min_rating` no se creaba en tablas existentes — reemplazada migración con `dbDelta` por `ALTER TABLE` explícito con verificación previa
+
 ### 1.2.0
 - **Nuevo:** Filtro de nota mínima por comercio — elige mostrar reseñas desde 1 a 5 estrellas (default: 4★). El filtro se aplica en tiempo de render, sin afectar la caché almacenada
 - **Mejora:** Migración automática de base de datos al cargar el plugin (`maybe_upgrade`), sin necesidad de reactivar

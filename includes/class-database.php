@@ -43,9 +43,16 @@ class JJRC_GR_Database {
     }
 
     public static function maybe_upgrade() {
-        if ( get_option( 'jjrc_gr_db_version' ) !== self::DB_VERSION ) {
-            self::install();
+        if ( get_option( 'jjrc_gr_db_version' ) === self::DB_VERSION ) return;
+
+        global $wpdb;
+
+        $columns = $wpdb->get_col( "DESCRIBE {$wpdb->prefix}gr_comercios", 0 );
+        if ( ! in_array( 'min_rating', $columns, true ) ) {
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}gr_comercios ADD COLUMN min_rating TINYINT UNSIGNED NOT NULL DEFAULT 1" );
         }
+
+        update_option( 'jjrc_gr_db_version', self::DB_VERSION );
     }
 
     public static function uninstall() {
