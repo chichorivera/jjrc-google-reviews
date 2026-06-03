@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class JJRC_GR_Database {
 
-    const DB_VERSION = '1.0';
+    const DB_VERSION = '1.1';
 
     public static function install() {
         global $wpdb;
@@ -19,6 +19,7 @@ class JJRC_GR_Database {
             color_fondo     VARCHAR(7)  NOT NULL DEFAULT '#ffffff',
             color_texto     VARCHAR(7)  NOT NULL DEFAULT '#333333',
             cache_horas     TINYINT UNSIGNED NOT NULL DEFAULT 12,
+            min_rating      TINYINT UNSIGNED NOT NULL DEFAULT 1,
             created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id)
         ) $charset;";
@@ -39,6 +40,12 @@ class JJRC_GR_Database {
         dbDelta( $sql_cache );
 
         update_option( 'jjrc_gr_db_version', self::DB_VERSION );
+    }
+
+    public static function maybe_upgrade() {
+        if ( get_option( 'jjrc_gr_db_version' ) !== self::DB_VERSION ) {
+            self::install();
+        }
     }
 
     public static function uninstall() {
@@ -81,6 +88,7 @@ class JJRC_GR_Database {
             'color_fondo'    => sanitize_hex_color( $data['color_fondo'] )    ?: '#ffffff',
             'color_texto'    => sanitize_hex_color( $data['color_texto'] )    ?: '#333333',
             'cache_horas'    => absint( $data['cache_horas'] ) ?: 12,
+            'min_rating'     => max( 1, min( 5, absint( $data['min_rating'] ?? 1 ) ) ),
         ];
 
         if ( ! empty( $data['id'] ) ) {

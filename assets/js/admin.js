@@ -22,6 +22,7 @@
         $('#jjrc-field-color-fondo').val('#ffffff');
         $('#jjrc-field-color-texto').val('#333333');
         $('#jjrc-field-cache').val('12');
+        $('#jjrc-field-min-rating').val('4');
     }
 
     $('#jjrc-btn-nuevo').on('click', function () {
@@ -172,6 +173,7 @@
         $('#jjrc-field-color-primario').val($btn.data('color_primario'));
         $('#jjrc-field-color-fondo').val($btn.data('color_fondo'));
         $('#jjrc-field-color-texto').val($btn.data('color_texto'));
+        $('#jjrc-field-min-rating').val($btn.data('min_rating') || '1');
         openModal();
     });
 

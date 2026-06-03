@@ -127,6 +127,7 @@ class JJRC_GR_Admin {
             'color_fondo'    => sanitize_hex_color( $_POST['color_fondo']    ?? '#ffffff' ),
             'color_texto'    => sanitize_hex_color( $_POST['color_texto']    ?? '#333333' ),
             'cache_horas'    => absint( $_POST['cache_horas'] ?? 12 ),
+            'min_rating'     => absint( $_POST['min_rating']  ?? 1 ),
         ];
 
         if ( empty( $data['nombre'] ) || empty( $data['place_id'] ) || empty( $data['shortcode_key'] ) ) {

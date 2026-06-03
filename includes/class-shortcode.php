@@ -65,6 +65,18 @@ class JJRC_GR_Shortcode {
             return '<p class="jjrc-gr-error">Error al obtener reseñas: ' . esc_html( $data['error'] ) . '</p>';
         }
 
+        // Filtrar por nota mínima (se aplica sobre la caché, no afecta lo almacenado)
+        $min_rating = absint( $comercio->min_rating ?? 1 );
+        if ( $min_rating > 1 ) {
+            $data['reviews'] = array_values( array_filter( $data['reviews'], function ( $r ) use ( $min_rating ) {
+                return $r['rating'] >= $min_rating;
+            } ) );
+        }
+
+        if ( empty( $data['reviews'] ) ) {
+            return '<p class="jjrc-gr-error">No hay reseñas con ' . esc_html( $min_rating ) . ' estrellas o más.</p>';
+        }
+
         // Encolar assets
         wp_enqueue_style( 'owl-carousel' );
         wp_enqueue_style( 'owl-carousel-theme' );

@@ -64,6 +64,16 @@
                             </select>
                         </div>
                         <div class="jjrc-field-group">
+                            <label>Mostrar reseñas desde</label>
+                            <select name="min_rating" id="jjrc-field-min-rating">
+                                <option value="1">⭐ Todas (1 estrella o más)</option>
+                                <option value="2">⭐⭐ 2 estrellas o más</option>
+                                <option value="3">⭐⭐⭐ 3 estrellas o más</option>
+                                <option value="4" selected>⭐⭐⭐⭐ 4 estrellas o más</option>
+                                <option value="5">⭐⭐⭐⭐⭐ Solo 5 estrellas</option>
+                            </select>
+                        </div>
+                        <div class="jjrc-field-group">
                             <label>Actualizar cache cada</label>
                             <select name="cache_horas" id="jjrc-field-cache">
                                 <option value="6">6 horas</option>
@@ -152,12 +162,12 @@
                         <code class="jjrc-shortcode-copy" data-clipboard="[jjrc_reviews key=&quot;<?php echo esc_attr( $c->shortcode_key ); ?>&quot;]">
                             [jjrc_reviews key="<?php echo esc_html( $c->shortcode_key ); ?>"]
                         </code>
-                        <button class="button button-small jjrc-btn-copy" data-text="[jjrc_reviews key=&quot;<?php echo esc_attr( $c->shortcode_key ); ?>&quot;]">📋</button>
+                        <button class="button button-small jjrc-btn-copy" data-text="[jjrc_reviews key=&quot;<?php echo esc_attr( $c->shortcode_key ); ?>&quot;]">Copiar</button>
                     </td>
-                    <td><?php echo $c->tipo_vista === 'carousel' ? '🎠 Carousel' : '⊞ Grid'; ?></td>
+                    <td><?php echo $c->tipo_vista === 'carousel' ? 'Carousel' : 'Grid'; ?></td>
                     <td>
                         <?php if ( $cache ) : ?>
-                            <span class="jjrc-rating">⭐ <?php echo esc_html( $cache->rating ); ?> (<?php echo number_format( $cache->total_ratings ); ?>)</span>
+                            <span class="jjrc-rating"><?php echo esc_html( $cache->rating ); ?> (<?php echo number_format( $cache->total_ratings ); ?>)</span>
                         <?php else : ?>
                             <span class="jjrc-no-cache">Sin cache</span>
                         <?php endif; ?>
@@ -172,14 +182,15 @@
                             data-cache="<?php echo esc_attr( $c->cache_horas ); ?>"
                             data-color_primario="<?php echo esc_attr( $c->color_primario ); ?>"
                             data-color_fondo="<?php echo esc_attr( $c->color_fondo ); ?>"
-                            data-color_texto="<?php echo esc_attr( $c->color_texto ); ?>">
-                            ✏️ Editar
+                            data-color_texto="<?php echo esc_attr( $c->color_texto ); ?>"
+                            data-min_rating="<?php echo absint( $c->min_rating ?? 1 ); ?>">
+                            Editar
                         </button>
                         <button class="button button-small jjrc-btn-refresh" data-id="<?php echo $c->id; ?>">
-                            🔄 Cache
+                            Cache
                         </button>
                         <button class="button button-small jjrc-btn-delete" data-id="<?php echo $c->id; ?>">
-                            🗑️ Eliminar
+                            Eliminar
                         </button>
                     </td>
                 </tr>

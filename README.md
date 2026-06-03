@@ -61,6 +61,7 @@ Puedes tener múltiples shortcodes en la misma página, cada uno con sus propios
 | Color de fondo | Fondo de las tarjetas | `#ffffff` |
 | Color de texto | Texto de las tarjetas | `#333333` |
 | Cache | Frecuencia de actualización desde Google | 12 horas |
+| Nota mínima | Ocultar reseñas por debajo de este puntaje | 4 estrellas |
 
 ## Caché
 
@@ -93,6 +94,10 @@ jjrc-google-reviews/
 ```
 
 ## Changelog
+
+### 1.2.0
+- **Nuevo:** Filtro de nota mínima por comercio — elige mostrar reseñas desde 1 a 5 estrellas (default: 4★). El filtro se aplica en tiempo de render, sin afectar la caché almacenada
+- **Mejora:** Migración automática de base de datos al cargar el plugin (`maybe_upgrade`), sin necesidad de reactivar
 
 ### 1.1.4
 - Bump de versión
