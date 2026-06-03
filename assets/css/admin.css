@@ -199,6 +199,25 @@
     cursor: pointer;
 }
 
+/* Checkboxes */
+.jjrc-checkboxes-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.jjrc-check-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+}
+.jjrc-check-label input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+}
+
 /* Place ID con botón de búsqueda */
 .jjrc-place-id-wrap {
     display: flex;

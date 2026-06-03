@@ -238,8 +238,42 @@
     border-radius: 50% !important;
     width: 34px !important;
     height: 34px !important;
-    font-size: 18px !important;
+    font-size: 20px !important;
     line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Flechas a los costados (overlay vertical centrado) */
+.jjrc-gr-carousel.jjrc-nav-sides {
+    position: relative;
+}
+
+.jjrc-gr-carousel.jjrc-nav-sides .owl-nav {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 100%;
+    left: 0;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.jjrc-gr-carousel.jjrc-nav-sides .owl-nav button {
+    pointer-events: all;
+}
+
+/* Flechas debajo del carousel */
+.jjrc-gr-carousel.jjrc-nav-bottom .owl-nav {
+    position: static !important;
+    transform: none !important;
+    display: flex !important;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px !important;
 }
 
 /* ---- GRID ---- */

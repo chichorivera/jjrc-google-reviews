@@ -6,17 +6,21 @@
 
         // ---- OWL CAROUSEL ----
         $('.jjrc-gr-carousel .jjrc-owl-carousel').each(function () {
-            $(this).owlCarousel({
+            var $el      = $(this);
+            var showDots = parseInt( $el.data('dots') ) !== 0;
+            var showNav  = parseInt( $el.data('nav') )  !== 0;
+
+            $el.owlCarousel({
                 loop:       false,
                 margin:     16,
-                nav:        true,
-                dots:       true,
+                nav:        showNav,
+                dots:       showDots,
                 autoplay:   false,
                 navText:    ['&#8249;', '&#8250;'],
                 responsive: {
-                    0:   { items: 1 },
-                    600: { items: 2 },
-                    1024:{ items: 3 }
+                    0:    { items: 1 },
+                    600:  { items: 2 },
+                    1024: { items: 3 }
                 }
             });
         });

@@ -62,6 +62,9 @@ Puedes tener múltiples shortcodes en la misma página, cada uno con sus propios
 | Color de texto | Texto de las tarjetas | `#333333` |
 | Cache | Frecuencia de actualización desde Google | 12 horas |
 | Nota mínima | Ocultar reseñas por debajo de este puntaje | 4 estrellas |
+| Mostrar dots | Indicadores de posición del carousel | Sí |
+| Mostrar flechas | Flechas de navegación del carousel | Sí |
+| Posición flechas | A los costados (overlay) o debajo del carousel | Costados |
 
 ## Caché
 
@@ -94,6 +97,12 @@ jjrc-google-reviews/
 ```
 
 ## Changelog
+
+### 1.4.0
+- **Nuevo:** Checkbox para mostrar/ocultar indicadores (dots) del carousel
+- **Nuevo:** Checkbox para mostrar/ocultar flechas de navegación
+- **Nuevo:** Selector de posición de flechas: a los costados (overlay centrado) o debajo del carousel
+- **Mejora:** Opciones de carousel se ocultan automáticamente al elegir vista Grid; selector de posición se oculta al desmarcar flechas
 
 ### 1.3.2
 - **Mejora:** CSS del frontend reforzado para evitar conflictos con Elementor y otros constructores visuales — reset de aislamiento, todos los selectores bajo `.jjrc-gr-wrap`, `!important` estratégico en propiedades que Elementor sobreescribe (márgenes de `p`, dimensiones de `img`, links)

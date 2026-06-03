@@ -2,7 +2,10 @@
 // Variables disponibles: $uid, $comercio, $data
 ?>
 
-<div class="jjrc-gr-wrap jjrc-gr-carousel" id="<?php echo esc_attr( $uid ); ?>">
+<?php
+$nav_class = 'jjrc-nav-' . esc_attr( $comercio->nav_position ?? 'sides' );
+?>
+<div class="jjrc-gr-wrap jjrc-gr-carousel <?php echo $nav_class; ?>" id="<?php echo esc_attr( $uid ); ?>">
 
     <div class="jjrc-gr-header">
         <span class="jjrc-gr-business-name"><?php echo esc_html( $data['name'] ); ?></span>
@@ -13,7 +16,9 @@
         </span>
     </div>
 
-    <div class="jjrc-owl-carousel owl-carousel owl-theme">
+    <div class="jjrc-owl-carousel owl-carousel owl-theme"
+         data-dots="<?php echo absint( $comercio->show_dots ?? 1 ); ?>"
+         data-nav="<?php echo absint( $comercio->show_nav ?? 1 ); ?>">
         <?php foreach ( $data['reviews'] as $review ) : ?>
             <div class="jjrc-review-card">
                 <div class="jjrc-review-header">

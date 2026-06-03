@@ -84,6 +84,28 @@
                         </div>
                     </div>
 
+                    <!-- Opciones exclusivas del carousel -->
+                    <div id="jjrc-carousel-options" class="jjrc-field-group">
+                        <label>Opciones del carousel</label>
+                        <div class="jjrc-checkboxes-row">
+                            <label class="jjrc-check-label">
+                                <input type="checkbox" name="show_dots" id="jjrc-field-show-dots" value="1" checked>
+                                Mostrar indicadores (dots)
+                            </label>
+                            <label class="jjrc-check-label">
+                                <input type="checkbox" name="show_nav" id="jjrc-field-show-nav" value="1" checked>
+                                Mostrar flechas de navegación
+                            </label>
+                        </div>
+                        <div id="jjrc-nav-position-wrap" class="jjrc-field-group" style="margin-top:10px; margin-bottom:0;">
+                            <label>Posición de las flechas</label>
+                            <select name="nav_position" id="jjrc-field-nav-position">
+                                <option value="sides">A los costados</option>
+                                <option value="bottom">Debajo del carousel</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="jjrc-field-group">
                         <label>Colores</label>
                         <div class="jjrc-colors-row">
@@ -183,7 +205,10 @@
                             data-color_primario="<?php echo esc_attr( $c->color_primario ); ?>"
                             data-color_fondo="<?php echo esc_attr( $c->color_fondo ); ?>"
                             data-color_texto="<?php echo esc_attr( $c->color_texto ); ?>"
-                            data-min_rating="<?php echo absint( $c->min_rating ?? 1 ); ?>">
+                            data-min_rating="<?php echo absint( $c->min_rating ?? 1 ); ?>"
+                            data-show_dots="<?php echo absint( $c->show_dots ?? 1 ); ?>"
+                            data-show_nav="<?php echo absint( $c->show_nav ?? 1 ); ?>"
+                            data-nav_position="<?php echo esc_attr( $c->nav_position ?? 'sides' ); ?>">
                             Editar
                         </button>
                         <button class="button button-small jjrc-btn-refresh" data-id="<?php echo $c->id; ?>">
