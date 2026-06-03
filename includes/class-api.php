@@ -8,17 +8,18 @@ class JJRC_GR_Api {
     }
 
     /**
-     * Autocompletado de lugares (para el admin)
+     * Búsqueda de lugares por texto (para el admin)
+     * Usa textsearch en lugar de autocomplete para mayor compatibilidad de API key.
      */
     public static function autocomplete( $input ) {
         $key = self::api_key();
         if ( empty( $key ) ) return [ 'error' => 'API Key no configurada.' ];
 
         $url = add_query_arg( [
-            'input'    => $input,
+            'query'    => $input,
             'language' => 'es',
             'key'      => $key,
-        ], 'https://maps.googleapis.com/maps/api/place/autocomplete/json' );
+        ], 'https://maps.googleapis.com/maps/api/place/textsearch/json' );
 
         $response = wp_remote_get( $url, [ 'timeout' => 10 ] );
 
@@ -33,10 +34,10 @@ class JJRC_GR_Api {
         }
 
         $results = [];
-        foreach ( $body['predictions'] ?? [] as $p ) {
+        foreach ( $body['results'] ?? [] as $r ) {
             $results[] = [
-                'place_id'    => $p['place_id'],
-                'description' => $p['description'],
+                'place_id'    => $r['place_id'],
+                'description' => $r['name'] . ( ! empty( $r['formatted_address'] ) ? ' — ' . $r['formatted_address'] : '' ),
             ];
         }
 

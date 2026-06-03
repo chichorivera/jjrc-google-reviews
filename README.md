@@ -94,6 +94,12 @@ jjrc-google-reviews/
 
 ## Changelog
 
+### 1.1.2
+- **Fix:** Buscador sin resultados — reemplazado endpoint `autocomplete` por `textsearch`, mismo que usa la API de Google en el script de referencia (mayor compatibilidad con configuraciones de API key)
+
+### 1.1.1
+- docs: README inicial
+
 ### 1.1.0
 - **Fix:** El autocompletado devolvía cero resultados por doble encoding en la URL de la API
 - **Nuevo:** Campo Place ID directo en el formulario + modal de búsqueda con lupa
