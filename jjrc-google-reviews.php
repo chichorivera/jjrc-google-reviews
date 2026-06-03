@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: JJRC Google Reviews
- * Plugin URI:  https://github.com/javierrivera/jjrc-google-reviews
+ * Plugin URI:  https://github.com/chichorivera/jjrc-google-reviews
  * Description: Muestra reseñas de Google Maps mediante shortcodes configurables con carousel u owl-carousel.
  * Version:     1.2.2
  * Author:      Javier Rivera
