@@ -66,15 +66,23 @@ class JJRC_GR_Shortcode {
         }
 
         // Filtrar por nota mínima (se aplica sobre la caché, no afecta lo almacenado)
-        $min_rating = absint( $comercio->min_rating ?? 1 );
+        $all_reviews = $data['reviews'];
+        $min_rating  = absint( $comercio->min_rating ?? 1 );
+
         if ( $min_rating > 1 ) {
             $data['reviews'] = array_values( array_filter( $data['reviews'], function ( $r ) use ( $min_rating ) {
-                return $r['rating'] >= $min_rating;
+                return floatval( $r['rating'] ) >= $min_rating;
             } ) );
         }
 
         if ( empty( $data['reviews'] ) ) {
-            return '<p class="jjrc-gr-error">No hay reseñas con ' . esc_html( $min_rating ) . ' estrellas o más.</p>';
+            if ( empty( $all_reviews ) ) {
+                return '<p class="jjrc-gr-error">No se encontraron reseñas para este comercio.</p>';
+            }
+            $max = max( array_map( fn( $r ) => floatval( $r['rating'] ), $all_reviews ) );
+            return '<p class="jjrc-gr-error">No hay reseñas con ' . esc_html( $min_rating ) . ' estrellas o más. '
+                 . 'La API devolvió ' . count( $all_reviews ) . ' reseña(s) y la nota más alta es ' . esc_html( $max ) . '. '
+                 . 'Intenta bajar el filtro de nota mínima o refresca la caché.</p>';
         }
 
         // Encolar assets
