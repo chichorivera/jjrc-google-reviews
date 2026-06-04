@@ -43,10 +43,10 @@
     bottom: -42px;
 }
 .jjrc-gr-wrap .owl-prev{
-    margin-left: -42px;
+    margin-left: -42px !important;
 }
 .jjrc-gr-wrap .owl-next{
-    margin-right: -42px;
+    margin-right: -42px !important;
 }
 .jjrc-gr-wrap .owl-theme .owl-dots .owl-dot span {
     width: 15px;
@@ -346,8 +346,15 @@
     color: #fff;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .jjrc-gr-grid .jjrc-grid-container {
         grid-template-columns: 1fr;
+    }
+
+    .jjrc-gr-wrap .owl-prev{
+        margin-left: 0 !important;
+    }
+    .jjrc-gr-wrap .owl-next{
+        margin-right: 0 !important;
     }
 }
