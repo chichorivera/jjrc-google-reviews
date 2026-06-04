@@ -163,19 +163,24 @@
                 <th>Shortcode</th>
                 <th>Vista</th>
                 <th>Rating</th>
+                <th>Reviews visibles</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody id="jjrc-comercios-tbody">
             <?php if ( empty( $comercios ) ) : ?>
                 <tr id="jjrc-row-empty">
-                    <td colspan="6" style="text-align:center; padding: 30px; color:#999;">
+                    <td colspan="7" style="text-align:center; padding: 30px; color:#999;">
                         No hay comercios configurados. Haz clic en <strong>+ Agregar Comercio</strong> para comenzar.
                     </td>
                 </tr>
             <?php else : ?>
                 <?php foreach ( $comercios as $c ) :
-                    $cache = JJRC_GR_Database::get_cache( $c->id );
+                    $cache       = JJRC_GR_Database::get_cache( $c->id );
+                    $min_rating  = absint( $c->min_rating ?? 1 );
+                    $all_reviews = $cache ? ( json_decode( $cache->reviews_json, true ) ?? [] ) : [];
+                    $total_cache = count( $all_reviews );
+                    $visibles    = count( array_filter( $all_reviews, fn( $r ) => ( $r['rating'] ?? 0 ) >= $min_rating ) );
                 ?>
                 <tr id="jjrc-row-<?php echo absint( $c->id ); ?>">
                     <td><strong><?php echo esc_html( $c->nombre ); ?></strong></td>
@@ -192,6 +197,18 @@
                             <span class="jjrc-rating"><?php echo esc_html( $cache->rating ); ?> (<?php echo number_format( $cache->total_ratings ); ?>)</span>
                         <?php else : ?>
                             <span class="jjrc-no-cache">Sin cache</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if ( $cache ) : ?>
+                            <span class="jjrc-visible-count <?php echo $visibles === 0 ? 'jjrc-visible-zero' : ''; ?>">
+                                <?php echo absint( $visibles ); ?> <span class="jjrc-visible-total">/ <?php echo absint( $total_cache ); ?></span>
+                            </span>
+                            <?php if ( $min_rating > 1 ) : ?>
+                                <span class="jjrc-visible-filter">≥ <?php echo $min_rating; ?>★</span>
+                            <?php endif; ?>
+                        <?php else : ?>
+                            <span class="jjrc-no-cache">—</span>
                         <?php endif; ?>
                     </td>
                     <td class="jjrc-actions">

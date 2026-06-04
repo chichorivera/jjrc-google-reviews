@@ -39,6 +39,28 @@
     font-style: italic;
     font-size: 12px;
 }
+.jjrc-visible-count {
+    font-weight: 600;
+    font-size: 13px;
+    color: #2271b1;
+}
+.jjrc-visible-count.jjrc-visible-zero {
+    color: #c00;
+}
+.jjrc-visible-total {
+    font-weight: 400;
+    color: #999;
+    font-size: 12px;
+}
+.jjrc-visible-filter {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 11px;
+    color: #888;
+    background: #f0f0f0;
+    border-radius: 3px;
+    padding: 1px 5px;
+}
 
 /* Modal overlay */
 .jjrc-modal-overlay {
