@@ -61,6 +61,7 @@ Puedes tener múltiples shortcodes en la misma página, cada uno con sus propios
 | Color de fondo | Fondo de las tarjetas | `#ffffff` |
 | Color de texto | Texto de las tarjetas | `#333333` |
 | Cache | Frecuencia de actualización desde Google | 12 horas |
+| Color navegación | Color de dots y flechas del carousel | igual que Primario |
 | Nota mínima | Ocultar reseñas por debajo de este puntaje | 4 estrellas |
 | Mostrar dots | Indicadores de posición del carousel | Sí |
 | Mostrar flechas | Flechas de navegación del carousel | Sí |
@@ -97,6 +98,9 @@ jjrc-google-reviews/
 ```
 
 ## Changelog
+
+### 1.4.3
+- **Nuevo:** Color de navegación independiente (`color_nav`) para dots y flechas del carousel, separado del color primario (estrellas). Comercios existentes heredan el color primario como valor por defecto
 
 ### 1.4.0
 - **Nuevo:** Checkbox para mostrar/ocultar indicadores (dots) del carousel

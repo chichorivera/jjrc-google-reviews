@@ -86,11 +86,13 @@ class JJRC_GR_Shortcode {
 
         // CSS variables inline
         $uid = 'jjrc-gr-' . esc_attr( $comercio->shortcode_key );
+        $color_nav  = ! empty( $comercio->color_nav ) ? $comercio->color_nav : $comercio->color_primario;
         $inline_css = "
             #{$uid} {
                 --jjrc-color-primary: {$comercio->color_primario};
                 --jjrc-color-bg:      {$comercio->color_fondo};
                 --jjrc-color-text:    {$comercio->color_texto};
+                --jjrc-color-nav:     {$color_nav};
             }
         ";
         wp_add_inline_style( 'jjrc-gr-frontend', $inline_css );

@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class JJRC_GR_Database {
 
-    const DB_VERSION = '1.3';
+    const DB_VERSION = '1.4';
 
     public static function install() {
         global $wpdb;
@@ -61,6 +61,9 @@ class JJRC_GR_Database {
         if ( ! in_array( 'nav_position', $columns, true ) ) {
             $wpdb->query( "ALTER TABLE {$wpdb->prefix}gr_comercios ADD COLUMN nav_position VARCHAR(10) NOT NULL DEFAULT 'sides'" );
         }
+        if ( ! in_array( 'color_nav', $columns, true ) ) {
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}gr_comercios ADD COLUMN color_nav VARCHAR(7) NOT NULL DEFAULT '#f5a623'" );
+        }
 
         update_option( 'jjrc_gr_db_version', self::DB_VERSION );
     }
@@ -109,6 +112,7 @@ class JJRC_GR_Database {
             'show_dots'      => absint( $data['show_dots']  ?? 1 ) ? 1 : 0,
             'show_nav'       => absint( $data['show_nav']   ?? 1 ) ? 1 : 0,
             'nav_position'   => in_array( $data['nav_position'] ?? 'sides', [ 'sides', 'bottom' ], true ) ? $data['nav_position'] : 'sides',
+            'color_nav'      => sanitize_hex_color( $data['color_nav'] ?? '#f5a623' ) ?: '#f5a623',
         ];
 
         if ( ! empty( $data['id'] ) ) {

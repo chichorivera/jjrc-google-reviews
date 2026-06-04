@@ -114,6 +114,10 @@
                                 <input type="color" name="color_primario" id="jjrc-field-color-primario" value="#f5a623">
                             </div>
                             <div class="jjrc-color-field">
+                                <label>Navegación</label>
+                                <input type="color" name="color_nav" id="jjrc-field-color-nav" value="#f5a623">
+                            </div>
+                            <div class="jjrc-color-field">
                                 <label>Fondo tarjeta</label>
                                 <input type="color" name="color_fondo" id="jjrc-field-color-fondo" value="#ffffff">
                             </div>
@@ -220,6 +224,7 @@
                             data-vista="<?php echo esc_attr( $c->tipo_vista ); ?>"
                             data-cache="<?php echo esc_attr( $c->cache_horas ); ?>"
                             data-color_primario="<?php echo esc_attr( $c->color_primario ); ?>"
+                            data-color_nav="<?php echo esc_attr( $c->color_nav ?? $c->color_primario ); ?>"
                             data-color_fondo="<?php echo esc_attr( $c->color_fondo ); ?>"
                             data-color_texto="<?php echo esc_attr( $c->color_texto ); ?>"
                             data-min_rating="<?php echo absint( $c->min_rating ?? 1 ); ?>"

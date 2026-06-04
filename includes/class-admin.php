@@ -130,7 +130,8 @@ class JJRC_GR_Admin {
             'min_rating'     => absint( $_POST['min_rating']   ?? 1 ),
             'show_dots'      => ! empty( $_POST['show_dots'] ) ? 1 : 0,
             'show_nav'       => ! empty( $_POST['show_nav'] )  ? 1 : 0,
-            'nav_position'   => sanitize_text_field( $_POST['nav_position'] ?? 'sides' ),
+            'nav_position'   => sanitize_text_field( $_POST['nav_position']  ?? 'sides' ),
+            'color_nav'      => sanitize_hex_color( $_POST['color_nav']     ?? '#f5a623' ),
         ];
 
         if ( empty( $data['nombre'] ) || empty( $data['place_id'] ) || empty( $data['shortcode_key'] ) ) {
