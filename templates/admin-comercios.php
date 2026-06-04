@@ -38,7 +38,7 @@
                         <div class="jjrc-place-id-wrap">
                             <input type="text" id="jjrc-field-place-id" name="place_id" placeholder="ChIJ…" autocomplete="off">
                             <button type="button" id="jjrc-btn-search-place" class="button jjrc-btn-search" title="Buscar comercio en Google">
-                                <span class="dashicons dashicons-search"></span>
+                                <span class="dashicons dashicons-location-alt"></span>
                             </button>
                         </div>
                         <p class="jjrc-field-hint">Ingresa el Place ID directamente o haz clic en la lupa para buscarlo.</p>

@@ -75,7 +75,7 @@
 .jjrc-modal {
     background: #fff;
     border-radius: 8px;
-    width: 600px;
+    width: 700px;
     max-width: 95vw;
     max-height: 90vh;
     overflow-y: auto;
@@ -292,3 +292,12 @@
 }
 .jjrc-search-results-list li:last-child { border-bottom: none; }
 .jjrc-search-results-list li:hover { background: #f0f7ff; }
+
+
+
+@media (max-width: 768px) {
+    .jjrc-modal {
+        width: 96%;
+    }
+}
+
