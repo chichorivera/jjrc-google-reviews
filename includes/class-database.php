@@ -47,9 +47,15 @@ class JJRC_GR_Database {
     }
 
     public static function maybe_upgrade() {
-        if ( get_option( 'jjrc_gr_db_version' ) === self::DB_VERSION ) return;
-
         global $wpdb;
+
+        $table_exists = $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}gr_comercios'" );
+        if ( ! $table_exists ) {
+            self::install();
+            return;
+        }
+
+        if ( get_option( 'jjrc_gr_db_version' ) === self::DB_VERSION ) return;
 
         $columns = $wpdb->get_col( "DESCRIBE {$wpdb->prefix}gr_comercios", 0 );
 
