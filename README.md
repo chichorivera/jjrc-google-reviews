@@ -99,6 +99,9 @@ jjrc-google-reviews/
 
 ## Changelog
 
+### 1.4.8
+- **Fix:** `autoHeight` cortaba las cards — agregado `padding-bottom: 30px` en `.owl-stage-outer` para que el espacio se sume a la altura calculada
+
 ### 1.4.7
 - **Mejora:** Carousel con `autoHeight: true` — la altura se ajusta automáticamente al slide activo
 

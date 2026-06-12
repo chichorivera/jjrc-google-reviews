@@ -237,6 +237,13 @@
     padding: 6px 8px;
 }
 
+/* autoHeight calcula el height via inline style; content-box hace que
+   el padding-bottom se sume en lugar de recortarse del contenido */
+.jjrc-gr-carousel .owl-stage-outer {
+    padding-bottom: 30px !important;
+    box-sizing: content-box !important;
+}
+
 .jjrc-gr-carousel .owl-dots .owl-dot span {
     background: #ddd;
 }
