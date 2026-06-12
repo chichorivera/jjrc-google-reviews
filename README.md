@@ -73,7 +73,7 @@ Las reseñas se almacenan en base de datos para minimizar llamadas a la API de G
 
 ## Límite de reseñas
 
-La **Places API (New)** utilizada desde v1.3.0 devuelve hasta **53 reseñas** por lugar. La versión anterior de la API (legacy) solo devolvía 5.
+La **Places API (New)** utilizada desde v1.3.0 devuelve hasta **5 reseñas** por lugar, seleccionadas por el algoritmo de Google ("más relevantes"). Este es un límite de la API y no puede modificarse. Si el filtro de nota mínima es muy restrictivo, puede que las reseñas devueltas no cumplan el umbral — en ese caso, baja el filtro o refresca la caché.
 
 ## Estructura del plugin
 
@@ -98,6 +98,15 @@ jjrc-google-reviews/
 ```
 
 ## Changelog
+
+### 1.4.6
+- **Fix:** `maybe_upgrade()` ahora detecta si las tablas no existen y las crea automáticamente — cubre instalaciones por FTP/git sin pasar por el botón "Activar" de WordPress (plug and play)
+
+### 1.4.5
+- **Fix:** `install()` no incluía las columnas `show_dots`, `show_nav`, `nav_position` y `color_nav` en el `CREATE TABLE`, causando "Error al guardar en la base de datos" en instalaciones nuevas
+
+### 1.4.4
+- **Mejora:** Mensaje de error más informativo cuando el filtro de nota mínima elimina todas las reseñas — muestra cuántas reseñas devolvió la API y cuál fue la nota más alta
 
 ### 1.4.3
 - **Nuevo:** Color de navegación independiente (`color_nav`) para dots y flechas del carousel, separado del color primario (estrellas). Comercios existentes heredan el color primario como valor por defecto
