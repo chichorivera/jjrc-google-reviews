@@ -16,6 +16,7 @@
                 nav:        showNav,
                 dots:       showDots,
                 autoplay:   false,
+                autoHeight: true,
                 navText:    ['&#8249;', '&#8250;'],
                 responsive: {
                     0:    { items: 1 },
