@@ -99,6 +99,9 @@ jjrc-google-reviews/
 
 ## Changelog
 
+### 1.4.7
+- **Mejora:** Carousel con `autoHeight: true` — la altura se ajusta automáticamente al slide activo
+
 ### 1.4.6
 - **Fix:** `maybe_upgrade()` ahora detecta si las tablas no existen y las crea automáticamente — cubre instalaciones por FTP/git sin pasar por el botón "Activar" de WordPress (plug and play)
 
