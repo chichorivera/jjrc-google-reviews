@@ -18,8 +18,12 @@ class JJRC_GR_Database {
             color_primario  VARCHAR(7)  NOT NULL DEFAULT '#f5a623',
             color_fondo     VARCHAR(7)  NOT NULL DEFAULT '#ffffff',
             color_texto     VARCHAR(7)  NOT NULL DEFAULT '#333333',
+            color_nav       VARCHAR(7)  NOT NULL DEFAULT '#f5a623',
             cache_horas     TINYINT UNSIGNED NOT NULL DEFAULT 12,
             min_rating      TINYINT UNSIGNED NOT NULL DEFAULT 1,
+            show_dots       TINYINT UNSIGNED NOT NULL DEFAULT 1,
+            show_nav        TINYINT UNSIGNED NOT NULL DEFAULT 1,
+            nav_position    VARCHAR(10) NOT NULL DEFAULT 'sides',
             created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id)
         ) $charset;";
