@@ -3,30 +3,30 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class JJRC_GR_Api {
 
+    const ENDPOINT  = 'https://serpapi.com/search';
+    const MAX_PAGES = 3; // Páginas de reseñas a traer por comercio (~10 reseñas por página)
+
     private static function api_key() {
-        return get_option( 'jjrc_gr_api_key', '' );
+        return get_option( 'jjrc_gr_serpapi_key', '' );
     }
 
     /**
-     * Búsqueda de lugares — Places API (New): POST places:searchText
+     * Búsqueda de lugares — SerpApi engine=google_maps (type=search)
      * Devuelve múltiples candidatos con place_id y dirección.
      */
     public static function autocomplete( $input ) {
         $key = self::api_key();
         if ( empty( $key ) ) return [ 'error' => 'API Key no configurada.' ];
 
-        $response = wp_remote_post( 'https://places.googleapis.com/v1/places:searchText', [
-            'timeout' => 10,
-            'headers' => [
-                'X-Goog-Api-Key'   => $key,
-                'X-Goog-FieldMask' => 'places.id,places.displayName,places.formattedAddress',
-                'Content-Type'     => 'application/json',
-            ],
-            'body' => wp_json_encode( [
-                'textQuery'    => $input,
-                'languageCode' => 'es',
-            ] ),
-        ] );
+        $url = add_query_arg( [
+            'engine'  => 'google_maps',
+            'type'    => 'search',
+            'q'       => $input,
+            'hl'      => 'es',
+            'api_key' => $key,
+        ], self::ENDPOINT );
+
+        $response = wp_remote_get( $url, [ 'timeout' => 20 ] );
 
         if ( is_wp_error( $response ) ) {
             return [ 'error' => $response->get_error_message() ];
@@ -35,15 +35,17 @@ class JJRC_GR_Api {
         $body = json_decode( wp_remote_retrieve_body( $response ), true );
 
         if ( isset( $body['error'] ) ) {
-            return [ 'error' => $body['error']['message'] ?? 'Error desconocido.' ];
+            return [ 'error' => $body['error'] ];
         }
 
         $results = [];
-        foreach ( $body['places'] ?? [] as $p ) {
+        foreach ( $body['local_results'] ?? [] as $p ) {
+            $place_id = $p['place_id'] ?? $p['data_id'] ?? '';
+            if ( empty( $place_id ) ) continue;
+
             $results[] = [
-                'place_id'    => $p['id'],
-                'description' => ( $p['displayName']['text'] ?? '' ) .
-                                 ( ! empty( $p['formattedAddress'] ) ? ' — ' . $p['formattedAddress'] : '' ),
+                'place_id'    => $place_id,
+                'description' => ( $p['title'] ?? '' ) . ( ! empty( $p['address'] ) ? ' — ' . $p['address'] : '' ),
             ];
         }
 
@@ -51,51 +53,69 @@ class JJRC_GR_Api {
     }
 
     /**
-     * Obtener reviews — Places API (New): GET places/{place_id}
-     * Devuelve hasta 53 reseñas (vs 5 de la API antigua).
+     * Obtener reviews — SerpApi engine=google_maps_reviews, ordenadas por nota más alta primero.
+     * Pagina hasta MAX_PAGES (via next_page_token) para traer más reseñas que el resumen
+     * de 5 que entregaba la Places API oficial.
      */
     public static function get_reviews( $place_id ) {
         $key = self::api_key();
         if ( empty( $key ) ) return [ 'error' => 'API Key no configurada.' ];
 
-        $url = add_query_arg( 'languageCode', 'es',
-            'https://places.googleapis.com/v1/places/' . rawurlencode( $place_id )
-        );
+        $reviews    = [];
+        $place_info = [];
+        $next_token = null;
 
-        $response = wp_remote_get( $url, [
-            'timeout' => 10,
-            'headers' => [
-                'X-Goog-Api-Key'   => $key,
-                'X-Goog-FieldMask' => 'displayName,rating,userRatingCount,reviews',
-            ],
-        ] );
-
-        if ( is_wp_error( $response ) ) {
-            return [ 'error' => $response->get_error_message() ];
-        }
-
-        $body = json_decode( wp_remote_retrieve_body( $response ), true );
-
-        if ( isset( $body['error'] ) ) {
-            return [ 'error' => $body['error']['message'] ?? 'Error desconocido.' ];
-        }
-
-        $reviews = [];
-        foreach ( $body['reviews'] ?? [] as $r ) {
-            $reviews[] = [
-                'author'       => $r['authorAttribution']['displayName'] ?? '',
-                'author_photo' => $r['authorAttribution']['photoUri']    ?? '',
-                'rating'       => $r['rating']                           ?? 0,
-                'text'         => $r['text']['text']                     ?? '',
-                'time'         => $r['relativePublishTimeDescription']   ?? '',
-                'timestamp'    => isset( $r['publishTime'] ) ? strtotime( $r['publishTime'] ) : 0,
+        for ( $page = 1; $page <= self::MAX_PAGES; $page++ ) {
+            $params = [
+                'engine'  => 'google_maps_reviews',
+                'sort_by' => 'ratingHigh',
+                'hl'      => 'es',
+                'api_key' => $key,
             ];
+
+            if ( $next_token ) {
+                $params['next_page_token'] = $next_token;
+            } else {
+                $params['place_id'] = $place_id;
+            }
+
+            $response = wp_remote_get( add_query_arg( $params, self::ENDPOINT ), [ 'timeout' => 20 ] );
+
+            if ( is_wp_error( $response ) ) {
+                if ( empty( $reviews ) ) return [ 'error' => $response->get_error_message() ];
+                break;
+            }
+
+            $body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+            if ( isset( $body['error'] ) ) {
+                if ( empty( $reviews ) ) return [ 'error' => $body['error'] ];
+                break;
+            }
+
+            if ( $page === 1 ) {
+                $place_info = $body['place_info'] ?? [];
+            }
+
+            foreach ( $body['reviews'] ?? [] as $r ) {
+                $reviews[] = [
+                    'author'       => $r['user']['name']      ?? '',
+                    'author_photo' => $r['user']['thumbnail'] ?? '',
+                    'rating'       => $r['rating']             ?? 0,
+                    'text'         => $r['snippet']            ?? '',
+                    'time'         => $r['date']               ?? '',
+                    'timestamp'    => isset( $r['iso_date'] ) ? strtotime( $r['iso_date'] ) : 0,
+                ];
+            }
+
+            $next_token = $body['serpapi_pagination']['next_page_token'] ?? null;
+            if ( ! $next_token ) break;
         }
 
         return [
-            'name'          => $body['displayName']['text'] ?? '',
-            'rating'        => $body['rating']              ?? 0,
-            'total_ratings' => $body['userRatingCount']     ?? 0,
+            'name'          => $place_info['title']   ?? '',
+            'rating'        => $place_info['rating']  ?? 0,
+            'total_ratings' => $place_info['reviews'] ?? 0,
             'reviews'       => $reviews,
         ];
     }

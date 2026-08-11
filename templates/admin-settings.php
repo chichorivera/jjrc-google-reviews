@@ -12,21 +12,21 @@
         <table class="form-table">
             <tr>
                 <th scope="row">
-                    <label for="jjrc_gr_api_key">API Key de Google Maps</label>
+                    <label for="jjrc_gr_serpapi_key">API Key de SerpApi</label>
                 </th>
                 <td>
                     <input
                         type="text"
-                        id="jjrc_gr_api_key"
-                        name="jjrc_gr_api_key"
-                        value="<?php echo esc_attr( get_option( 'jjrc_gr_api_key', '' ) ); ?>"
+                        id="jjrc_gr_serpapi_key"
+                        name="jjrc_gr_serpapi_key"
+                        value="<?php echo esc_attr( get_option( 'jjrc_gr_serpapi_key', '' ) ); ?>"
                         class="regular-text"
-                        placeholder="AIzaSy..."
+                        placeholder="Tu Private API Key de SerpApi"
                     />
                     <p class="description">
                         Obtén tu API Key en
-                        <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a>.
-                        Asegúrate de tener habilitada la <strong>Places API</strong>.
+                        <a href="https://serpapi.com/manage-api-key" target="_blank">serpapi.com</a>.
+                        El plugin usa los motores <code>google_maps</code> y <code>google_maps_reviews</code>.
                     </p>
                 </td>
             </tr>
@@ -39,7 +39,7 @@
 
     <h2>¿Cómo usar el plugin?</h2>
     <ol>
-        <li>Ingresa tu API Key arriba y guarda.</li>
+        <li>Ingresa tu API Key de SerpApi arriba y guarda.</li>
         <li>Ve a <strong>Comercios</strong> y agrega un nuevo comercio buscando por nombre.</li>
         <li>Selecciona el comercio correcto del autocompletado para obtener su Place ID.</li>
         <li>Elige el tipo de visualización y los colores.</li>

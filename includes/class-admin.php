@@ -42,7 +42,7 @@ class JJRC_GR_Admin {
     }
 
     public static function register_settings() {
-        register_setting( 'jjrc_gr_settings', 'jjrc_gr_api_key', [
+        register_setting( 'jjrc_gr_settings', 'jjrc_gr_serpapi_key', [
             'sanitize_callback' => 'sanitize_text_field',
         ] );
     }
@@ -56,18 +56,6 @@ class JJRC_GR_Admin {
             [],
             JJRC_GR_VERSION
         );
-
-        // Google Places Autocomplete (legacy JS API)
-        $api_key = get_option( 'jjrc_gr_api_key', '' );
-        if ( $api_key ) {
-            wp_enqueue_script(
-                'google-maps-places',
-                "https://maps.googleapis.com/maps/api/js?key={$api_key}&libraries=places",
-                [],
-                null,
-                true
-            );
-        }
 
         wp_enqueue_script(
             'jjrc-gr-admin',
@@ -87,7 +75,7 @@ class JJRC_GR_Admin {
 
     public static function page_comercios() {
         $comercios = JJRC_GR_Database::get_comercios();
-        $api_key   = get_option( 'jjrc_gr_api_key', '' );
+        $api_key   = get_option( 'jjrc_gr_serpapi_key', '' );
         include JJRC_GR_PATH . 'templates/admin-comercios.php';
     }
 

@@ -6,7 +6,7 @@ Plugin de WordPress para mostrar reseñas de Google Maps mediante shortcodes con
 
 - WordPress 5.3+
 - PHP 7.4+
-- API Key de Google Maps con la **Places API** habilitada
+- API Key de [SerpApi](https://serpapi.com/) (plan con crédito suficiente según volumen de comercios/tráfico)
 
 ## Instalación
 
@@ -18,11 +18,14 @@ Plugin de WordPress para mostrar reseñas de Google Maps mediante shortcodes con
 
 ### Obtener una API Key
 
-1. Accede a [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
-2. Crea un proyecto (o usa uno existente)
-3. Habilita la **Places API**
-4. Crea una credencial de tipo **API Key**
-5. En **Restricciones de aplicación** deja la key sin restricción, o usa restricción por **IP** (no por HTTP referrer, ya que las llamadas se hacen desde el servidor PHP)
+1. Crea una cuenta en [serpapi.com](https://serpapi.com/)
+2. Copia tu **Private API Key** desde [serpapi.com/manage-api-key](https://serpapi.com/manage-api-key)
+3. Pégala en **Google Reviews → Configuración**
+
+El plugin consume dos motores de SerpApi:
+
+- `google_maps` (`type=search`) — para el buscador de comercios por nombre
+- `google_maps_reviews` (`sort_by=ratingHigh`) — para traer las reseñas, ordenadas de mayor a menor nota
 
 ### Agregar un comercio
 
@@ -73,7 +76,12 @@ Las reseñas se almacenan en base de datos para minimizar llamadas a la API de G
 
 ## Límite de reseñas
 
-La **Places API (New)** utilizada desde v1.3.0 devuelve hasta **5 reseñas** por lugar, seleccionadas por el algoritmo de Google ("más relevantes"). Este es un límite de la API y no puede modificarse. Si el filtro de nota mínima es muy restrictivo, puede que las reseñas devueltas no cumplan el umbral — en ese caso, baja el filtro o refresca la caché.
+Desde v2.0.0 el plugin usa **SerpApi** (`google_maps_reviews`) en lugar de la Places API oficial de Google, que solo entregaba un resumen de 5 reseñas "más relevantes" sin poder ordenarlas por nota. SerpApi permite:
+
+- Traer varias páginas de reseñas por comercio (hasta 3 páginas, ~30 reseñas)
+- Ordenarlas por **nota más alta primero** (`sort_by=ratingHigh`), antes de aplicar el filtro de nota mínima
+
+Si el filtro de nota mínima es muy restrictivo, puede que las reseñas devueltas no cumplan el umbral — en ese caso, baja el filtro o refresca la caché.
 
 ## Estructura del plugin
 
@@ -82,7 +90,7 @@ jjrc-google-reviews/
 ├── jjrc-google-reviews.php     # Entry point, constantes, hooks
 ├── includes/
 │   ├── class-database.php      # CRUD tablas gr_comercios y gr_reviews_cache
-│   ├── class-api.php           # Google Places API + lógica de caché
+│   ├── class-api.php           # SerpApi (Google Maps Reviews) + lógica de caché
 │   ├── class-admin.php         # Panel admin + handlers AJAX
 │   └── class-shortcode.php     # Shortcode + enqueue de assets
 ├── templates/
@@ -98,6 +106,12 @@ jjrc-google-reviews/
 ```
 
 ## Changelog
+
+### 2.0.0
+- **Breaking:** Migración de la Places API oficial de Google a **[SerpApi](https://serpapi.com/)** (`google_maps` + `google_maps_reviews`) — la API oficial solo entregaba un resumen de 5 reseñas sin control de orden
+- **Nuevo:** Reseñas ordenadas por nota más alta (`sort_by=ratingHigh`) y paginadas (hasta 3 páginas por comercio), en vez del resumen fijo de 5 reseñas
+- **Breaking:** La opción de API Key cambió de `jjrc_gr_api_key` a `jjrc_gr_serpapi_key` — **debes reingresar tu API Key** (ahora de SerpApi, no de Google Cloud) en **Google Reviews → Configuración**
+- **Eliminado:** Carga del script `maps.googleapis.com` (autocompletado JS legacy) — ya no se usa
 
 ### 1.4.8
 - **Fix:** `autoHeight` cortaba las cards — agregado `padding-bottom: 30px` en `.owl-stage-outer` para que el espacio se sume a la altura calculada

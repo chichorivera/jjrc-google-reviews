@@ -83,7 +83,7 @@ class JJRC_GR_Database {
         $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}gr_reviews_cache" );
         $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}gr_comercios" );
         delete_option( 'jjrc_gr_db_version' );
-        delete_option( 'jjrc_gr_api_key' );
+        delete_option( 'jjrc_gr_serpapi_key' );
     }
 
     // ---------- COMERCIOS ----------

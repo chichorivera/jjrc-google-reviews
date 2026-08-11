@@ -9,7 +9,7 @@
     <?php if ( empty( $api_key ) ) : ?>
         <div class="notice notice-warning">
             <p>
-                <strong>Atención:</strong> No has configurado tu API Key de Google.
+                <strong>Atención:</strong> No has configurado tu API Key de SerpApi.
                 <a href="<?php echo admin_url( 'admin.php?page=jjrc-gr-settings' ); ?>">Ir a Configuración →</a>
             </p>
         </div>
