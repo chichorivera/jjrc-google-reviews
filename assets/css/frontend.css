@@ -201,6 +201,7 @@
 }
 
 .jjrc-gr-wrap .jjrc-review-text.jjrc-expanded {
+    display: block;
     -webkit-line-clamp: unset;
     line-clamp: unset;
     overflow: visible;

@@ -5,31 +5,36 @@
     $(document).ready(function () {
 
         // ---- TRUNCADO DE RESEÑAS LARGAS ----
-        // Se corre antes de inicializar Owl Carousel para que autoHeight
-        // mida el alto ya truncado de cada slide.
-        $('.jjrc-review-text').each(function () {
-            var $text = $(this);
+        // Inyecta el botón "Leer más" solo si el texto realmente se corta.
+        // IMPORTANTE: solo se puede medir sobre elementos ya visibles — en el
+        // grid, las cards de páginas no activas están en display:none (altura
+        // 0), así que esto se invoca después de que cada card se muestra.
+        function addReadMoreButtons($scope) {
+            $scope.find('.jjrc-review-text').each(function () {
+                var $text = $(this);
 
-            // Si el contenido real es más alto que la caja truncada (line-clamp),
-            // hay texto oculto y corresponde mostrar el botón "Leer más".
-            if ( this.scrollHeight <= this.clientHeight + 1 ) return;
+                // Ya tiene botón (ej. al volver a paginar sobre la misma página)
+                if ($text.next('.jjrc-read-more').length) return;
 
-            var $btn = $('<button type="button" class="jjrc-read-more">Leer más</button>');
+                if (this.scrollHeight <= this.clientHeight + 1) return;
 
-            $btn.on('click', function () {
-                var expanded = $text.toggleClass('jjrc-expanded').hasClass('jjrc-expanded');
-                $btn.text(expanded ? 'Leer menos' : 'Leer más');
+                var $btn = $('<button type="button" class="jjrc-read-more">Leer más</button>');
 
-                // Si la reseña está dentro de un carousel con autoHeight, hay
-                // que forzar el recálculo del alto del slide activo.
-                var $owl = $text.closest('.jjrc-owl-carousel');
-                if ($owl.length) {
-                    $owl.trigger('refresh.owl.carousel');
-                }
+                $btn.on('click', function () {
+                    var expanded = $text.toggleClass('jjrc-expanded').hasClass('jjrc-expanded');
+                    $btn.text(expanded ? 'Leer menos' : 'Leer más');
+
+                    // Si la reseña está dentro de un carousel con autoHeight, hay
+                    // que forzar el recálculo del alto del slide activo.
+                    var $owl = $text.closest('.jjrc-owl-carousel');
+                    if ($owl.length) {
+                        $owl.trigger('refresh.owl.carousel');
+                    }
+                });
+
+                $text.after($btn);
             });
-
-            $text.after($btn);
-        });
+        }
 
         // ---- OWL CAROUSEL ----
         $('.jjrc-gr-carousel .jjrc-owl-carousel').each(function () {
@@ -50,6 +55,8 @@
                     600:  { items: 2 },
                     1024: { items: 3 }
                 }
+            }).on('initialized.owl.carousel', function () {
+                addReadMoreButtons($el);
             });
         });
 
@@ -64,6 +71,7 @@
             if (totalPages <= 1) {
                 // Mostrar todas sin paginación
                 $cards.addClass('active');
+                addReadMoreButtons($wrap);
                 return;
             }
 
@@ -75,6 +83,7 @@
                 });
                 $pagination.find('button').removeClass('active');
                 $pagination.find('[data-page="' + page + '"]').addClass('active');
+                addReadMoreButtons($wrap);
             }
 
             // Crear botones de paginación
