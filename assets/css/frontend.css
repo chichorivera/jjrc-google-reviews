@@ -193,6 +193,32 @@
     padding: 0 !important;
     flex: 1;
     color: var(--jjrc-color-text, #333);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--jjrc-lines, 4);
+    line-clamp: var(--jjrc-lines, 4);
+    overflow: hidden;
+}
+
+.jjrc-gr-wrap .jjrc-review-text.jjrc-expanded {
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+}
+
+.jjrc-gr-wrap .jjrc-read-more {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: -6px 0 0 !important;
+    font-size: 13px !important;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--jjrc-color-nav, var(--jjrc-color-primary, #f5a623));
+    cursor: pointer;
+    text-decoration: underline !important;
+    align-self: flex-start;
 }
 
 /* ---- Badge Google ---- */

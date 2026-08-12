@@ -27,6 +27,7 @@
         $('#jjrc-field-show-dots').prop('checked', true);
         $('#jjrc-field-show-nav').prop('checked', true);
         $('#jjrc-field-nav-position').val('sides');
+        $('#jjrc-field-review-lines').val('4');
         syncCarouselOptions();
     }
 
@@ -203,6 +204,7 @@
         $('#jjrc-field-show-dots').prop('checked', $btn.data('show_dots') !== 0);
         $('#jjrc-field-show-nav').prop('checked',  $btn.data('show_nav')  !== 0);
         $('#jjrc-field-nav-position').val($btn.data('nav_position') || 'sides');
+        $('#jjrc-field-review-lines').val($btn.data('review_lines') || '4');
         syncCarouselOptions();
         openModal();
     });

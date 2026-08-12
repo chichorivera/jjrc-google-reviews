@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class JJRC_GR_Database {
 
-    const DB_VERSION = '1.5';
+    const DB_VERSION = '1.6';
 
     public static function install() {
         global $wpdb;
@@ -24,6 +24,7 @@ class JJRC_GR_Database {
             show_dots       TINYINT UNSIGNED NOT NULL DEFAULT 1,
             show_nav        TINYINT UNSIGNED NOT NULL DEFAULT 1,
             nav_position    VARCHAR(10) NOT NULL DEFAULT 'sides',
+            review_lines    TINYINT UNSIGNED NOT NULL DEFAULT 4,
             created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id)
         ) $charset;";
@@ -78,6 +79,10 @@ class JJRC_GR_Database {
         // cache_horas era TINYINT (máx 255h ≈ 10 días) — se amplía para permitir "1 mes" (720h)
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}gr_comercios MODIFY COLUMN cache_horas SMALLINT UNSIGNED NOT NULL DEFAULT 12" );
 
+        if ( ! in_array( 'review_lines', $columns, true ) ) {
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}gr_comercios ADD COLUMN review_lines TINYINT UNSIGNED NOT NULL DEFAULT 4" );
+        }
+
         update_option( 'jjrc_gr_db_version', self::DB_VERSION );
     }
 
@@ -126,6 +131,7 @@ class JJRC_GR_Database {
             'show_nav'       => absint( $data['show_nav']   ?? 1 ) ? 1 : 0,
             'nav_position'   => in_array( $data['nav_position'] ?? 'sides', [ 'sides', 'bottom' ], true ) ? $data['nav_position'] : 'sides',
             'color_nav'      => sanitize_hex_color( $data['color_nav'] ?? '#f5a623' ) ?: '#f5a623',
+            'review_lines'   => max( 1, min( 20, absint( $data['review_lines'] ?? 4 ) ?: 4 ) ),
         ];
 
         if ( ! empty( $data['id'] ) ) {

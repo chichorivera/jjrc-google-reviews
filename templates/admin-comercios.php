@@ -84,6 +84,18 @@
                                 <option value="720">1 mes</option>
                             </select>
                         </div>
+                        <div class="jjrc-field-group">
+                            <label>Truncar texto a</label>
+                            <select name="review_lines" id="jjrc-field-review-lines">
+                                <option value="2">2 líneas</option>
+                                <option value="3">3 líneas</option>
+                                <option value="4" selected>4 líneas</option>
+                                <option value="5">5 líneas</option>
+                                <option value="6">6 líneas</option>
+                                <option value="8">8 líneas</option>
+                            </select>
+                            <p class="jjrc-field-hint">Reseñas más largas muestran un botón "Leer más".</p>
+                        </div>
                     </div>
 
                     <!-- Opciones exclusivas del carousel -->
@@ -232,7 +244,8 @@
                             data-min_rating="<?php echo absint( $c->min_rating ?? 1 ); ?>"
                             data-show_dots="<?php echo absint( $c->show_dots ?? 1 ); ?>"
                             data-show_nav="<?php echo absint( $c->show_nav ?? 1 ); ?>"
-                            data-nav_position="<?php echo esc_attr( $c->nav_position ?? 'sides' ); ?>">
+                            data-nav_position="<?php echo esc_attr( $c->nav_position ?? 'sides' ); ?>"
+                            data-review_lines="<?php echo absint( $c->review_lines ?? 4 ); ?>">
                             Editar
                         </button>
                         <button class="button button-small jjrc-btn-refresh" data-id="<?php echo $c->id; ?>">

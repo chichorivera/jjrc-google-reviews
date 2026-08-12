@@ -120,6 +120,7 @@ class JJRC_GR_Admin {
             'show_nav'       => ! empty( $_POST['show_nav'] )  ? 1 : 0,
             'nav_position'   => sanitize_text_field( $_POST['nav_position']  ?? 'sides' ),
             'color_nav'      => sanitize_hex_color( $_POST['color_nav']     ?? '#f5a623' ),
+            'review_lines'   => absint( $_POST['review_lines'] ?? 4 ),
         ];
 
         if ( empty( $data['nombre'] ) || empty( $data['place_id'] ) || empty( $data['shortcode_key'] ) ) {

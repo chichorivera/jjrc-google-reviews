@@ -69,6 +69,7 @@ Puedes tener múltiples shortcodes en la misma página, cada uno con sus propios
 | Mostrar dots | Indicadores de posición del carousel | Sí |
 | Mostrar flechas | Flechas de navegación del carousel | Sí |
 | Posición flechas | A los costados (overlay) o debajo del carousel | Costados |
+| Truncar texto a | Líneas de texto visibles antes de truncar la reseña con botón "Leer más" | 4 líneas |
 
 ## Caché
 
@@ -106,6 +107,9 @@ jjrc-google-reviews/
 ```
 
 ## Changelog
+
+### 2.2.0
+- **Nuevo:** Truncado de reseñas largas — configurable por comercio (2 a 8 líneas, default 4), con botón "Leer más" / "Leer menos" que solo aparece si el texto realmente se corta. En el carousel, expandir una reseña recalcula el `autoHeight` del slide activo
 
 ### 2.1.0
 - **Nuevo:** Opciones "1 semana" (168h) y "1 mes" (720h) en la frecuencia de cache de cada comercio — pensado para planes con cuota limitada de peticiones (ej. SerpApi free), donde conviene sincronizar manualmente vía el botón 🔄 Cache en vez de dejar que la caché expire varias veces por semana

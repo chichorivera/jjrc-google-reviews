@@ -4,6 +4,33 @@
 
     $(document).ready(function () {
 
+        // ---- TRUNCADO DE RESEÑAS LARGAS ----
+        // Se corre antes de inicializar Owl Carousel para que autoHeight
+        // mida el alto ya truncado de cada slide.
+        $('.jjrc-review-text').each(function () {
+            var $text = $(this);
+
+            // Si el contenido real es más alto que la caja truncada (line-clamp),
+            // hay texto oculto y corresponde mostrar el botón "Leer más".
+            if ( this.scrollHeight <= this.clientHeight + 1 ) return;
+
+            var $btn = $('<button type="button" class="jjrc-read-more">Leer más</button>');
+
+            $btn.on('click', function () {
+                var expanded = $text.toggleClass('jjrc-expanded').hasClass('jjrc-expanded');
+                $btn.text(expanded ? 'Leer menos' : 'Leer más');
+
+                // Si la reseña está dentro de un carousel con autoHeight, hay
+                // que forzar el recálculo del alto del slide activo.
+                var $owl = $text.closest('.jjrc-owl-carousel');
+                if ($owl.length) {
+                    $owl.trigger('refresh.owl.carousel');
+                }
+            });
+
+            $text.after($btn);
+        });
+
         // ---- OWL CAROUSEL ----
         $('.jjrc-gr-carousel .jjrc-owl-carousel').each(function () {
             var $el      = $(this);
