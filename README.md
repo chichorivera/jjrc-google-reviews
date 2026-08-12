@@ -108,6 +108,9 @@ jjrc-google-reviews/
 
 ## Changelog
 
+### 2.2.1
+- **Fix:** El botón "Leer más" no aparecía en la vista grid — la detección de texto truncado corría antes de que la paginación mostrara las cards (arrancan en `display:none`), por lo que siempre medía altura 0. Ahora se re-evalúa cada vez que una card se hace visible (carga inicial, cambio de página, o tras inicializar el carousel)
+
 ### 2.2.0
 - **Nuevo:** Truncado de reseñas largas — configurable por comercio (2 a 8 líneas, default 4), con botón "Leer más" / "Leer menos" que solo aparece si el texto realmente se corta. En el carousel, expandir una reseña recalcula el `autoHeight` del slide activo
 
