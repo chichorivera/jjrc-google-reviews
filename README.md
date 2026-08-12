@@ -108,6 +108,10 @@ jjrc-google-reviews/
 
 ## Changelog
 
+### 2.2.2
+- **Fix:** El truncado de reseñas no se aplicaba en sitios con temas o Elementor que sobreescriben `display` en `<p>` — las propiedades del line-clamp (`display`, `-webkit-line-clamp`, `overflow`) no tenían `!important`, a diferencia del resto de reglas de `.jjrc-review-text`
+- **Fix:** La detección de texto truncado ahora quita el clamp un instante para medir el alto real en vez de leer `scrollHeight` con el clamp activo — dentro de Owl Carousel (que usa `transform`/`backface-visibility` en los slides) esa lectura podía ser incorrecta y el botón "Leer más" no aparecía
+
 ### 2.2.1
 - **Fix:** El botón "Leer más" no aparecía en la vista grid — la detección de texto truncado corría antes de que la paginación mostrara las cards (arrancan en `display:none`), por lo que siempre medía altura 0. Ahora se re-evalúa cada vez que una card se hace visible (carga inicial, cambio de página, o tras inicializar el carousel)
 

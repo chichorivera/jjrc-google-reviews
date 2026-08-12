@@ -193,18 +193,18 @@
     padding: 0 !important;
     flex: 1;
     color: var(--jjrc-color-text, #333);
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: var(--jjrc-lines, 4);
-    line-clamp: var(--jjrc-lines, 4);
-    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: var(--jjrc-lines, 4) !important;
+    line-clamp: var(--jjrc-lines, 4) !important;
+    overflow: hidden !important;
 }
 
 .jjrc-gr-wrap .jjrc-review-text.jjrc-expanded {
-    display: block;
-    -webkit-line-clamp: unset;
-    line-clamp: unset;
-    overflow: visible;
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    overflow: visible !important;
 }
 
 .jjrc-gr-wrap .jjrc-read-more {

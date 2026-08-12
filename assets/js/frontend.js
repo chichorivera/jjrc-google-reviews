@@ -12,11 +12,22 @@
         function addReadMoreButtons($scope) {
             $scope.find('.jjrc-review-text').each(function () {
                 var $text = $(this);
+                var el    = this;
 
                 // Ya tiene botón (ej. al volver a paginar sobre la misma página)
                 if ($text.next('.jjrc-read-more').length) return;
 
-                if (this.scrollHeight <= this.clientHeight + 1) return;
+                // No confiamos en scrollHeight mientras el clamp sigue activo:
+                // dentro de Owl Carousel los slides usan transform/backface-
+                // visibility, y ahí el navegador calcula mal el scrollHeight
+                // de cajas -webkit-line-clamp. Quitamos el clamp un instante,
+                // medimos el alto real, y lo restauramos.
+                var clampedHeight = el.clientHeight;
+                $text.addClass('jjrc-expanded');
+                var naturalHeight = el.scrollHeight;
+                $text.removeClass('jjrc-expanded');
+
+                if (naturalHeight <= clampedHeight + 1) return;
 
                 var $btn = $('<button type="button" class="jjrc-read-more">Leer más</button>');
 
