@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class JJRC_GR_Database {
 
-    const DB_VERSION = '1.4';
+    const DB_VERSION = '1.5';
 
     public static function install() {
         global $wpdb;
@@ -19,7 +19,7 @@ class JJRC_GR_Database {
             color_fondo     VARCHAR(7)  NOT NULL DEFAULT '#ffffff',
             color_texto     VARCHAR(7)  NOT NULL DEFAULT '#333333',
             color_nav       VARCHAR(7)  NOT NULL DEFAULT '#f5a623',
-            cache_horas     TINYINT UNSIGNED NOT NULL DEFAULT 12,
+            cache_horas     SMALLINT UNSIGNED NOT NULL DEFAULT 12,
             min_rating      TINYINT UNSIGNED NOT NULL DEFAULT 1,
             show_dots       TINYINT UNSIGNED NOT NULL DEFAULT 1,
             show_nav        TINYINT UNSIGNED NOT NULL DEFAULT 1,
@@ -75,6 +75,9 @@ class JJRC_GR_Database {
             $wpdb->query( "ALTER TABLE {$wpdb->prefix}gr_comercios ADD COLUMN color_nav VARCHAR(7) NOT NULL DEFAULT '#f5a623'" );
         }
 
+        // cache_horas era TINYINT (máx 255h ≈ 10 días) — se amplía para permitir "1 mes" (720h)
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}gr_comercios MODIFY COLUMN cache_horas SMALLINT UNSIGNED NOT NULL DEFAULT 12" );
+
         update_option( 'jjrc_gr_db_version', self::DB_VERSION );
     }
 
@@ -117,7 +120,7 @@ class JJRC_GR_Database {
             'color_primario' => sanitize_hex_color( $data['color_primario'] ) ?: '#f5a623',
             'color_fondo'    => sanitize_hex_color( $data['color_fondo'] )    ?: '#ffffff',
             'color_texto'    => sanitize_hex_color( $data['color_texto'] )    ?: '#333333',
-            'cache_horas'    => absint( $data['cache_horas'] ) ?: 12,
+            'cache_horas'    => max( 1, min( 8760, absint( $data['cache_horas'] ) ?: 12 ) ),
             'min_rating'     => max( 1, min( 5, absint( $data['min_rating'] ?? 1 ) ) ),
             'show_dots'      => absint( $data['show_dots']  ?? 1 ) ? 1 : 0,
             'show_nav'       => absint( $data['show_nav']   ?? 1 ) ? 1 : 0,

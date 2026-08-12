@@ -63,7 +63,7 @@ Puedes tener múltiples shortcodes en la misma página, cada uno con sus propios
 | Color primario | Color de estrellas y controles | `#f5a623` |
 | Color de fondo | Fondo de las tarjetas | `#ffffff` |
 | Color de texto | Texto de las tarjetas | `#333333` |
-| Cache | Frecuencia de actualización desde Google | 12 horas |
+| Cache | Frecuencia de actualización desde la API (6h / 12h / 24h / 48h / 1 semana / 1 mes) | 12 horas |
 | Color navegación | Color de dots y flechas del carousel | igual que Primario |
 | Nota mínima | Ocultar reseñas por debajo de este puntaje | 4 estrellas |
 | Mostrar dots | Indicadores de posición del carousel | Sí |
@@ -106,6 +106,10 @@ jjrc-google-reviews/
 ```
 
 ## Changelog
+
+### 2.1.0
+- **Nuevo:** Opciones "1 semana" (168h) y "1 mes" (720h) en la frecuencia de cache de cada comercio — pensado para planes con cuota limitada de peticiones (ej. SerpApi free), donde conviene sincronizar manualmente vía el botón 🔄 Cache en vez de dejar que la caché expire varias veces por semana
+- **Fix:** Columna `cache_horas` ampliada de `TINYINT` (máx. 255h) a `SMALLINT` (máx. 65535h) para soportar la opción de 1 mes
 
 ### 2.0.0
 - **Breaking:** Migración de la Places API oficial de Google a **[SerpApi](https://serpapi.com/)** (`google_maps` + `google_maps_reviews`) — la API oficial solo entregaba un resumen de 5 reseñas sin control de orden

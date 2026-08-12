@@ -111,6 +111,9 @@
                             .appendTo($list);
                     });
                     $list.show();
+                } else if (!res.success && res.data && res.data.error) {
+                    $('#jjrc-search-hint').text('Error: ' + res.data.error);
+                    $list.hide();
                 } else {
                     $('#jjrc-search-hint').text('Sin resultados. Intenta con otro nombre.');
                     $list.hide();

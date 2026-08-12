@@ -80,6 +80,8 @@
                                 <option value="12" selected>12 horas</option>
                                 <option value="24">24 horas</option>
                                 <option value="48">48 horas</option>
+                                <option value="168">1 semana</option>
+                                <option value="720">1 mes</option>
                             </select>
                         </div>
                     </div>
